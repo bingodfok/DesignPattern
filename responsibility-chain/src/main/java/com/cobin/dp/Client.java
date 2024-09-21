@@ -15,7 +15,6 @@ import java.util.Date;
 public class Client {
     public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
         LogRemarkFilterChain chain = new LogRemarkFilterChain();
-        chain.addFilter(new EmptyFilter());
         chain.addFilter(new DateTimeFilter());
         User user = new User();
         user.setName(new Date());
@@ -25,6 +24,7 @@ public class Client {
         FiledNode node = new FiledNode();
         node.setAnnotation(field.getAnnotation(LogRemark.class));
         node.setValue(name);
-        System.out.println(chain.doFilter(node));
+        System.out.println(chain.start(node));
+        System.out.println(chain.start(node));
     }
 }

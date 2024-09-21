@@ -3,9 +3,6 @@ package com.cobin.dp;
 import com.cobin.dp.criterion.FiledNode;
 import com.cobin.dp.criterion.Filter;
 
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  * LogRemarkFilterChain
  *
@@ -14,21 +11,18 @@ import java.util.List;
  **/
 public class LogRemarkFilterChain extends AbstractFilterChain {
 
-    private final List<Filter> FILTER_LIST = new LinkedList<>();
-
-    private Integer index = 0;
-
-    public LogRemarkFilterChain() {
+    // 初始化通用过滤器
+    static {
+        FILTER_LIST.add(new EmptyFilter());
         FILTER_LIST.add(new EndFilter());
     }
 
+    /**
+     *  多次调用请请勿使用该方法启动 FilterChain，应该使用{@code start()}
+     */
     @Override
     public String doFilter(FiledNode node) {
         Filter filter = FILTER_LIST.get(index++);
         return filter.logRemarkParse(this, node);
-    }
-
-    public void addFilter(Filter filter) {
-        FILTER_LIST.add(FILTER_LIST.size() - 1, filter);
     }
 }
